@@ -1,0 +1,154 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+void result(char ch[][100],int size,char name[],double roll,char reg[],char coll[]);
+int main(){
+    char password[100];
+    char Uroll[100];
+    char new_password[100];
+    char salt[]="@";
+    char x[100];
+    char y[100];
+    int subject;
+    char name[50];
+    double roll;
+    char reg[100];
+    char coll[100];
+    printf("Enter University Roll Number: ");
+    fgets(Uroll,100,stdin);
+    Uroll[strcspn(Uroll,"\n")]='\0';
+    printf("Enter Password: ");
+    fgets(password,100,stdin);
+    password[strcspn(password,"\n")]='\0';
+    strcpy(new_password,salt);
+    strcat(new_password,password);
+    strcat(new_password,salt);
+    strcpy(x,new_password);
+    x[strcspn(x,"\n")]='\0';
+    strcpy(y,Uroll);
+    y[strcspn(y,"\n")]='\0';
+    if(strcspn(new_password,x)==0 || strcspn(Uroll,y)==0){
+    system("cls");
+    printf("Enter Personal Details\n");
+    printf("Enter Name: ");
+    fgets(name,50,stdin);
+    name[strcspn(name,"\n")]='\0';
+    printf("Enter Roll Number: ");
+    scanf("%lf",&roll);
+    printf("Enter Registration Number: ");
+    getchar();
+    fgets(reg,100,stdin);
+    reg[strcspn(reg,"\n")]='\0';
+    printf("Enter The Collage Name: ");
+    fgets(coll,100,stdin);
+    coll[strcspn(coll,"\n")]='\0';
+    printf("Enter The Number of Subjects: ");
+    scanf("%d",&subject);
+    char x[subject][100];
+    result(x,subject,name,roll,reg,coll);
+    }
+    return 0;
+}
+void result(char ch[][100],int size,char name[],double roll,char reg[],char coll[]){
+    int marks[size];
+    int CA[size];
+    int ATTENDENCE[size];
+    for(int i=0;i<size;i++){
+        printf("%d.Enter The Subject Name: ",i+1);
+        getchar();
+        fgets(ch[i],100,stdin);
+        ch[i][strcspn(ch[i],"\n")]='\0';
+        printf("Enter the Marks of %s in 70: ",ch[i]);
+        scanf("%d",&marks[i]);
+        if(marks[i]>70 || marks[i]<0){
+        printf("**MARKS SHOULD BE BETWEEN 0 & 70 \n");
+        i--;
+        continue;}
+        printf("Enter the Marks of %s in CA IN 25: ",ch[i]);
+        scanf("%d",& CA[i]);
+        if(CA[i]>25 || CA[i]<0){
+        printf("**MARKS OF CA SHOULD BE BETWEEN 0 & 25 \n");
+        i--;
+        continue;}
+        printf("Enter the Marks OF %s in ATTENDENCE IN 5: ",ch[i]);
+        scanf("%d",& ATTENDENCE[i]);
+        if(ATTENDENCE[i]>5 || ATTENDENCE[i]<0){
+        printf("**MARKS OF ATTENDENCE SHOULD BE BETWEEN 0 & 5 \n");
+        i--;
+        continue;}
+    }
+    int O=10,E=9,A=8,B=7,C=6,D=5,F=2,I=2;
+    float credit=3;
+    int sum=0;
+    float SGPA;
+    int find =0;
+    int total_credit[size];
+    system("cls");
+            printf("_________________________________________________________________________________________\n");
+            printf("|%-8s %-33s|%-15s%-29.lf|\n", "NAME:", name, "ROLL NUMBER:", roll);
+            printf("|__________________________________________|____________________________________________|\n");
+            printf("|%-22s %-64s|\n", "REGISTRATION NUMBER:", reg);
+            printf("|_______________________________________________________________________________________|\n");
+            printf("|%-14s %-72s|\n","COLLAGE NAME:",coll);
+            printf("|_______________________________________________________________________________________|\n");
+            printf("_________________________________________________________________________________________\n");
+            printf("|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Report Card~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|\n");
+            printf("|%-27s|%-14s|%-14s|%-14s|%-14s|\n","Subject","Letter Grade","Points","Credit","Credit Point");
+            printf("|___________________________|______________|______________|______________|______________|\n");
+    for(int i=0;i<size;i++){
+        if(marks[i]+CA[i]+ATTENDENCE[i]>=90 && marks[i]+CA[i]+ATTENDENCE[i]<=100){
+            printf("|%-27s|%-14s|%-14d|%-14.1f|%-14.f|\n",ch[i],"O",O,credit,credit*O);
+            total_credit[i]= credit*O;       }
+        else if(marks[i]+CA[i]+ATTENDENCE[i]>=80 && marks[i]+CA[i]+ATTENDENCE[i]<=89){
+            printf("|%-27s|%-14s|%-14d|%-14.1f|%-14.f|\n",ch[i],"E",E,credit,credit*E);
+            total_credit[i]= credit*E;        }
+        else if(marks[i]+CA[i]+ATTENDENCE[i]>=70 && marks[i]+CA[i]+ATTENDENCE[i]<=79){
+            printf("|%-27s|%-14s|%-14d|%-14.1f|%-14.f|\n",ch[i],"A",A,credit,credit*A);
+            total_credit[i]= credit*A;        }
+        else if(marks[i]+CA[i]+ATTENDENCE[i]>=60 && marks[i]+CA[i]+ATTENDENCE[i]<=69){
+            printf("|%-27s|%-14s|%-14d|%-14.1f|%-14.f|\n",ch[i],"B",B,credit,credit*B);
+            total_credit[i]= credit*B;        }
+        else if(marks[i]+CA[i]+ATTENDENCE[i]>=50 && marks[i]+CA[i]+ATTENDENCE[i]<=59){
+            printf("|%-27s|%-14s|%-14d|%-14.1f|%-14.f|\n",ch[i],"C",C,credit,credit*C);
+            total_credit[i]= credit*C;        }
+        else if(marks[i]+CA[i]+ATTENDENCE[i]>=40 && marks[i]+CA[i]+ATTENDENCE[i]<=49){
+            printf("|%-27s|%-14s|%-14d|%-14.1f|%-14.f|\n",ch[i],"D",D,credit,credit*D);
+            total_credit[i]= credit*D;        }
+        else if(marks[i]+CA[i]+ATTENDENCE[i]>=0 && marks[i]+CA[i]+ATTENDENCE[i]<=39){
+            printf("|%-27s|%-14s|%-14d|%-14.1f|%-14.f|\n",ch[i],"F",F,credit,credit*F);
+            total_credit[i]= credit*F;        }
+        else if(marks[i]+CA[i]+ATTENDENCE[i]==0){
+            printf("|%-27s|%-14s|%-14d|%-14.1f|%-14.f|\n",ch[i],"I",I,credit,credit*I);
+            total_credit[i]= credit*I;        }
+        else if(marks[i]+CA[i]+ATTENDENCE[i]>100){
+            printf("|%-27s|%-14s|%-14s|%-14s|%-14s|\n",ch[i],"Invalid","Invalid","Invalid","Invalid");
+            printf("|___________________________|______________|______________|______________|______________|\n");
+            printf("|%-87s|\n","**PLEASE DO CHECK THE NUMBERS YOU HAVE ENTERED");
+            printf("|_______________________________________________________________________________________|\n");
+            return;}
+        else{
+            printf("|YOU HAVE ENTERED WRONG INFORMATION                                                     |\n");}
+    sum = sum+total_credit[i];
+    if(total_credit[i]==6){
+        find=1;
+    }
+    printf("|___________________________|______________|______________|______________|______________|\n");
+    }
+    int credit_sum=credit*size;
+    printf("|%-27s|%-14s|%-14s|%-14d|%-14d|\n","","","Total",credit_sum,sum);
+    printf("|___________________________|______________|______________|______________|______________|\n");
+    SGPA=(sum/(credit*size));
+    if(find){
+        printf("|%-27s %-14s|%-44s|\n","SGPA:","","");
+        printf("|%-27s %-14s|%-44s|\n","RESULT SEMESTER: XP","","");
+    }
+    else{
+    printf("|%-6s%-21.2f %-14s|%-44s|\n","SGPA:",SGPA,"","");
+    printf("|%-27s %-14s|%-44s|\n","RESULT SEMESTER: P","","");
+    }
+    printf("|__________________________________________|____________________________________________|\n");
+    printf("***For the students who are failed to appear in the examination Grade obtained : I***\n");
+    printf("***Grade obtained for incomplete result : I\n***");
+    printf("If you have more quaries goto : https://makautexam.net/");
+
+}
